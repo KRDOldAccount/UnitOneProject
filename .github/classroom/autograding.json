@@ -1,0 +1,14 @@
+{
+  "tests": [
+    {
+      "name": "CalendarApp Unit Tests",
+      "setup": "",
+      "run": ".\\gradlew CalendarApp:test",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    }
+  ]
+}
