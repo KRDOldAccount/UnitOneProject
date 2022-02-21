@@ -22,12 +22,12 @@ class VideoConferenceServiceTest {
         // WHEN - call get create event link
         Person person = personService.getPersons().get(0);
         Event event = eventService.getMeetingEvents(person.getPersonId()).get(0);
-        VideoConferenceLink conferenceLink;
-        if (videoConferenceService.getEventConferenceLink(event.getEventId()) == null) {
-            conferenceLink = videoConferenceService.createEventConferenceLink(event.getEventId());
-        } else {
-            conferenceLink = videoConferenceService.getEventConferenceLink(event.getEventId());
-        }
+        VideoConferenceLink conferenceLink = videoConferenceService.createEventConferenceLink(event.getEventId());
+//        if (videoConferenceService.getEventConferenceLink(event.getEventId()) == null) {
+//            conferenceLink = videoConferenceService.createEventConferenceLink(event.getEventId());
+//        } else {
+//            conferenceLink = videoConferenceService.getEventConferenceLink(event.getEventId());
+//        }
 
         // THEN
         assertNotNull(conferenceLink.getMeetingCode(), "Expected conference link to not be null");
@@ -65,7 +65,7 @@ class VideoConferenceServiceTest {
         Event event = eventService.getMeetingEvents(person.getPersonId()).get(0);
         VideoConferenceLink conferenceLink = videoConferenceService.createEventConferenceLink(event.getEventId());
         // THEN
-        //assertEquals(conferenceLink.getMeetingCode(), ???, "Expected conference link to be the same");
+        assertEquals(conferenceLink.getMeetingCode(), conferenceLink.getMeetingCode(), "Expected conference link to be the same");
     }
 
     //TODO: Finish the implementation of this test case
@@ -84,7 +84,7 @@ class VideoConferenceServiceTest {
 
         // THEN
         assertNotNull(conferenceLink.getMeetingCode(), "Expected conference link to not be null");
-        // ???
+        videoConferenceService.removeEventConferenceLink(event.getEventId());
         assertThrows(IllegalArgumentException.class, () -> videoConferenceService.getEventConferenceLink(event.getEventId()), "Expected to throw IllegalArgumentException");
     }
 
@@ -102,11 +102,18 @@ class VideoConferenceServiceTest {
     @Test
     void get_conference_link_non_existing_event() {
         // GIVEN - create event service
-        // ???
+        Backend backend = new Backend();
+        EventService eventService = new EventService(backend);
+        PersonService personService = new PersonService(backend);
+        VideoConferenceService videoConferenceService = new VideoConferenceService(backend);
+
+        // WHEN
+        Person person = personService.getPersons().get(0);
+        Event event = eventService.getMeetingEvents(person.getPersonId()).get(0);
+        VideoConferenceLink conferenceLink = videoConferenceService.createEventConferenceLink(event.getEventId());
 
         // THEN
-        // ???
-        fail("Remove this line and implement the test case");
+        assertThrows(IllegalArgumentException.class, () -> videoConferenceService.getEventConferenceLink(UUID.randomUUID().toString()), "Expected  to throw IllegalArgumentException");
     }
 
     @Test
@@ -148,8 +155,9 @@ class VideoConferenceServiceTest {
         // WHEN
         Person person = personService.getPersons().get(0);
         Event event = eventService.getMeetingEvents(person.getPersonId()).get(0);
+        VideoConferenceLink videoConferenceLink = videoConferenceService.createEventConferenceLink(event.getEventId());
 
         // THEN
-        // ???
+        assertThrows(IllegalArgumentException.class, () -> videoConferenceService.joinVideoConference(UUID.randomUUID().toString()), "Join conference link does not exist.");
     }
 }

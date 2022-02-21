@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ata.unit.one.project.service.VideoConferenceServiceTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2022-02-21T01:44:10" hostname="DESKTOP-RMB7JLL" time="0.118">
+  <properties/>
+  <testcase name="get_conference_link_non_existing_conference_link()" classname="ata.unit.one.project.service.VideoConferenceServiceTest" time="0.046"/>
+  <testcase name="join_conference_link_non_existing_conference_link()" classname="ata.unit.one.project.service.VideoConferenceServiceTest" time="0.015"/>
+  <testcase name="create_conference_link_non_existing_event()" classname="ata.unit.one.project.service.VideoConferenceServiceTest" time="0.009"/>
+  <testcase name="delete_conference_link_already_created()" classname="ata.unit.one.project.service.VideoConferenceServiceTest" time="0.009"/>
+  <testcase name="create_event_conference_link_multiple_throws_illegal_argument_exception()" classname="ata.unit.one.project.service.VideoConferenceServiceTest" time="0.008"/>
+  <testcase name="join_conference_link_non_existing_event()" classname="ata.unit.one.project.service.VideoConferenceServiceTest" time="0.005"/>
+  <testcase name="return_conference_link_already_created()" classname="ata.unit.one.project.service.VideoConferenceServiceTest" time="0.009"/>
+  <testcase name="get_conference_link_non_existing_event()" classname="ata.unit.one.project.service.VideoConferenceServiceTest" time="0.006"/>
+  <testcase name="create_event_conference_link()" classname="ata.unit.one.project.service.VideoConferenceServiceTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

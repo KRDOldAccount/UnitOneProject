@@ -1,0 +1,12 @@
+Use Case: Create Conference Link
+Preconditions:
+- The user selects the conference link menu.
+Invariants:
+- The terminal is not closed
+Postconditions:
+- A new conference link is created.
+Steps:
+1. The user enters CONFERENCELINKS.
+2. The user enters CREATE.
+3. The user enters an event ID.
+4. The software creates and displays a conference link.

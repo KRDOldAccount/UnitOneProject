@@ -3,6 +3,10 @@ package ata.unit.one.project.service;
 import ata.unit.one.project.backend.Backend;
 import ata.unit.one.project.backend.models.EventDto;
 import ata.unit.one.project.backend.models.VideoConferenceLinkDto;
+import ata.unit.one.project.conferencelink.ConferenceLinkContext;
+import ata.unit.one.project.conferencelink.ConferenceLinkHandler;
+import ata.unit.one.project.conferencelink.GoogleConferenceLinkHandler;
+import ata.unit.one.project.conferencelink.ZoomConferenceLinkHandler;
 import ata.unit.one.project.models.VideoConferenceLink;
 
 import java.awt.*;
@@ -63,16 +67,33 @@ public class VideoConferenceService {
         if (eventResponse == null || videoConferenceResponse == null) {
             throw new IllegalArgumentException("Conference link does not exist");
         }
-        try {
-            if (eventResponse.getVideoConferenceProvider().equalsIgnoreCase("google")) {
-                String formattedCode = format("%s-%s-%s", videoConferenceResponse.getMeetingCode().substring(0, 3), videoConferenceResponse.getMeetingCode().substring(3, 6), videoConferenceResponse.getMeetingCode().substring(6));
-                Desktop.getDesktop().browse(new URL(format("https://meet.google.com", formattedCode)).toURI());
-            }
-            if (eventResponse.getVideoConferenceProvider().equalsIgnoreCase("zoom")) {
-                Desktop.getDesktop().browse(new URL(format("https://zoom.us/j/%s", videoConferenceResponse.getMeetingCode())).toURI());
-            }
-        } catch (IOException | URISyntaxException e) {
-            throw new IllegalArgumentException("Could not join video conference");
+
+        ConferenceLinkHandler handler;
+        if (eventResponse.getVideoConferenceProvider().equalsIgnoreCase("google")) {
+            handler = new GoogleConferenceLinkHandler();
         }
+        else if (eventResponse.getVideoConferenceProvider().equalsIgnoreCase("zoom")) {
+            handler = new ZoomConferenceLinkHandler();
+        }
+        else {
+           handler = new ZoomConferenceLinkHandler();
+        }
+        ConferenceLinkContext context = new ConferenceLinkContext(handler);
+        context.join(videoConferenceResponse.getMeetingCode());
+
+//
+//
+//
+//        try {
+//            if (eventResponse.getVideoConferenceProvider().equalsIgnoreCase("google")) {
+//                String formattedCode = format("%s-%s-%s", videoConferenceResponse.getMeetingCode().substring(0, 3), videoConferenceResponse.getMeetingCode().substring(3, 6), videoConferenceResponse.getMeetingCode().substring(6));
+//                Desktop.getDesktop().browse(new URL(format("https://meet.google.com", formattedCode)).toURI());
+//            }
+//            if (eventResponse.getVideoConferenceProvider().equalsIgnoreCase("zoom")) {
+//                Desktop.getDesktop().browse(new URL(format("https://zoom.us/j/%s", videoConferenceResponse.getMeetingCode())).toURI());
+//            }
+//        } catch (IOException | URISyntaxException e) {
+//            throw new IllegalArgumentException("Could not join video conference");
+//        }
     }
 }

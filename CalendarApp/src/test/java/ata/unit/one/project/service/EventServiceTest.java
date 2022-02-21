@@ -44,9 +44,20 @@ class EventServiceTest {
     @Test
     void share_calendar_returns_distinct_list() {
         // GIVEN
+        Backend backend = new Backend();
+        EventService eventService = new EventService(backend);
+        PersonService personService = new PersonService(backend);
 
         // WHEN
+        Person originalPerson = personService.getPersons().get(0);
+        List<Event> events = eventService.getMeetingEvents(originalPerson.getPersonId());
+        Person newPerson = personService.addPerson("Kyle");
+        List<Event> sharedEvents = eventService.shareCalendarEvents(originalPerson.getPersonId(), newPerson.getPersonId());
+        List<Event> newPersonEvents = eventService.getMeetingEvents(newPerson.getPersonId());
+
 
         // THEN
+        assertEquals(sharedEvents, newPersonEvents, "Expected to be same.");
+        assertNotEquals(events, newPersonEvents, "Expected to be different.");
     }
 }

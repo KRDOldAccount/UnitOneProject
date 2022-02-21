@@ -38,7 +38,7 @@ public class EventService {
         }
         List<Event> events = processResponse(response);
         var ownerPersonEvents = cache.get(ownerPersonId);
-        cache.put(personId, ownerPersonEvents);
+        cache.put(ownerPersonId, ownerPersonEvents);
         return events;
     }
 
