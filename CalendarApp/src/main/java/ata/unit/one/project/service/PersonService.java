@@ -2,6 +2,7 @@ package ata.unit.one.project.service;
 
 import ata.unit.one.project.backend.Backend;
 import ata.unit.one.project.backend.models.PersonDto;
+import ata.unit.one.project.comparator.SortByPersonName;
 import ata.unit.one.project.models.Person;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class PersonService {
                     .build();
             listPersons.add(person);
         }
+        listPersons.sort(new SortByPersonName());
+
         return listPersons;
     }
 
